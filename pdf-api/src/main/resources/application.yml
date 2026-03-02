@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: openstitch-api
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+openstitch:
+  storage:
+    type: filesystem
+    filesystem:
+      base-dir: ./templates
+
+logging:
+  level:
+    com.openstitch: DEBUG
+    root: INFO

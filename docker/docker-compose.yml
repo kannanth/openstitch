@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    ports:
+      - "8080:8080"
+    environment:
+      - OPENSTITCH_STORAGE_TYPE=filesystem
+      - OPENSTITCH_STORAGE_FILESYSTEM_BASE_DIR=/data/templates
+    volumes:
+      - template-data:/data/templates
+
+  designer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.designer
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
+  # Optional PostgreSQL for database storage
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=openstitch
+      - POSTGRES_USER=openstitch
+      - POSTGRES_PASSWORD=openstitch
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    profiles:
+      - database
+
+volumes:
+  template-data:
+  postgres-data:
