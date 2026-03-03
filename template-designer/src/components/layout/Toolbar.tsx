@@ -13,7 +13,8 @@ import {
   PanelBottom,
   Plus,
 } from 'lucide-react';
-import { useTemplateStore } from '../../store/templateStore';
+import { useTemplateStore, defaultTemplate } from '../../store/templateStore';
+import { useTabStore } from '../../store/tabStore';
 import { useUIStore } from '../../store/uiStore';
 import { migrateTemplate } from '../../utils/migrateTemplate';
 
@@ -23,9 +24,8 @@ export function Toolbar() {
   const template = useTemplateStore((s) => s.template);
   const undoStack = useTemplateStore((s) => s.undoStack);
   const redoStack = useTemplateStore((s) => s.redoStack);
-  const setTemplate = useTemplateStore((s) => s.setTemplate);
-  const resetTemplate = useTemplateStore((s) => s.resetTemplate);
   const undo = useTemplateStore((s) => s.undo);
+  const createTab = useTabStore((s) => s.createTab);
   const redo = useTemplateStore((s) => s.redo);
   const enableSection = useTemplateStore((s) => s.enableSection);
   const disableSection = useTemplateStore((s) => s.disableSection);
@@ -57,7 +57,7 @@ export function Toolbar() {
     reader.onload = (ev) => {
       try {
         const parsed = JSON.parse(ev.target?.result as string);
-        setTemplate(migrateTemplate(parsed));
+        createTab(migrateTemplate(parsed));
       } catch {
         alert('Invalid JSON file');
       }
@@ -83,7 +83,7 @@ export function Toolbar() {
 
   return (
     <div className="flex items-center gap-1 px-4 py-2 bg-white border-b shadow-sm">
-      <button className={btnClass} onClick={resetTemplate} title="New Template">
+      <button className={btnClass} onClick={() => createTab(structuredClone(defaultTemplate))} title="New Template">
         <FilePlus size={18} />
       </button>
 

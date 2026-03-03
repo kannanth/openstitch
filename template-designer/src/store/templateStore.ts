@@ -150,9 +150,17 @@ interface TemplateState {
   undo: () => void;
   redo: () => void;
   resetTemplate: () => void;
+  loadState: (snapshot: {
+    template: Template;
+    selectedElementId: string | null;
+    selectedArea: SelectedArea;
+    clipboard: TemplateElement | null;
+    undoStack: Template[];
+    redoStack: Template[];
+  }) => void;
 }
 
-const defaultTemplate: Template = {
+export const defaultTemplate: Template = {
   metadata: { name: 'Untitled Template', version: 1 },
   pageLayout: {
     pageSize: 'A4',
@@ -162,7 +170,7 @@ const defaultTemplate: Template = {
   body: { sections: [{ id: uuidv4(), name: 'Main', elements: [] }] }
 };
 
-const defaultArea: SelectedArea = { type: 'section', sectionIndex: 0, part: 'sectionBody' };
+export const defaultArea: SelectedArea = { type: 'section', sectionIndex: 0, part: 'sectionBody' };
 
 export const useTemplateStore = create<TemplateState>((set, get) => ({
   template: defaultTemplate,
@@ -721,5 +729,14 @@ export const useTemplateStore = create<TemplateState>((set, get) => ({
     selectedElementId: null,
     selectedArea: defaultArea,
     clipboard: null,
-  })
+  }),
+
+  loadState: (snapshot) => set({
+    template: snapshot.template,
+    selectedElementId: snapshot.selectedElementId,
+    selectedArea: snapshot.selectedArea,
+    clipboard: snapshot.clipboard,
+    undoStack: snapshot.undoStack,
+    redoStack: snapshot.redoStack,
+  }),
 }));

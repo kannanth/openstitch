@@ -8,7 +8,7 @@ export function DesignCanvas() {
 
   return (
     <div
-      className="flex-1 overflow-auto bg-gray-200 flex items-start justify-center p-8"
+      className="flex-1 overflow-auto bg-gray-200 flex items-start justify-center pt-3 px-8 pb-8"
       onClick={(e) => {
         if (e.target === e.currentTarget) selectElement(null);
       }}

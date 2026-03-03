@@ -7,7 +7,7 @@ import {
   BarChart3,
   Users,
 } from 'lucide-react';
-import { useTemplateStore } from '../../store/templateStore';
+import { useTabStore } from '../../store/tabStore';
 import type { Template } from '../../types/template';
 
 interface SampleTemplate {
@@ -677,10 +677,10 @@ const sampleTemplates: SampleTemplate[] = [
 ];
 
 export function SampleTemplates() {
-  const setTemplate = useTemplateStore((s) => s.setTemplate);
+  const createTab = useTabStore((s) => s.createTab);
 
   const handleSelect = (sample: SampleTemplate) => {
-    setTemplate(structuredClone(sample.template));
+    createTab(structuredClone(sample.template));
   };
 
   return (
