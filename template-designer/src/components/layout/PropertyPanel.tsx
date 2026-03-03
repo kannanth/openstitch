@@ -3,6 +3,7 @@ import { TextProperties } from '../properties/TextProperties';
 import { TableProperties } from '../properties/TableProperties';
 import { ImageProperties } from '../properties/ImageProperties';
 import { ChartProperties } from '../properties/ChartProperties';
+import { ConditionalProperties } from '../properties/ConditionalProperties';
 import { CommonProperties } from '../properties/CommonProperties';
 import { SectionProperties } from '../properties/SectionProperties';
 import { PageHeaderFooterProperties } from '../properties/PageHeaderFooterProperties';
@@ -83,14 +84,7 @@ export function PropertyPanel() {
               <ChartProperties element={selectedElement} />
             )}
             {selectedElement.type === 'CONDITIONAL' && (
-              <div className="text-sm text-gray-500">
-                <label className="block text-xs font-medium text-gray-600 mb-1">
-                  Condition Expression
-                </label>
-                <pre className="bg-gray-50 p-2 rounded text-xs overflow-auto">
-                  {selectedElement.condition}
-                </pre>
-              </div>
+              <ConditionalProperties element={selectedElement} />
             )}
             {selectedElement.type === 'REPEATING_SECTION' && (
               <div className="text-sm text-gray-500">

@@ -6,6 +6,7 @@ import { TextElementView } from './TextElement';
 import { TableElementView } from './TableElement';
 import { ImageElementView } from './ImageElement';
 import { ChartElementView } from './ChartElement';
+import { ConditionalElementView } from './ConditionalElement';
 import { GripVertical } from 'lucide-react';
 
 interface Props {
@@ -116,11 +117,7 @@ export function ElementFactory({ element, area, index: _index, isSelected, onSel
       case 'CHART':
         return <ChartElementView element={element} />;
       case 'CONDITIONAL':
-        return (
-          <div className="text-xs text-purple-600 bg-purple-50 p-2 rounded">
-            Conditional: {element.condition}
-          </div>
-        );
+        return <ConditionalElementView element={element} />;
       case 'REPEATING_SECTION':
         return (
           <div className="text-xs text-green-600 bg-green-50 p-2 rounded">
